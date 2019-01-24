@@ -1,6 +1,5 @@
 var ObjectID = require('mongodb').ObjectID;
 
-
 /** 
  * CRUD Example 
  */
