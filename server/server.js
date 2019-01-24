@@ -1,16 +1,19 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
+const cors = require('cors')
+
 const db = require('./config/db');
 
 const app = express();
 
 const port = 8000;
-
-//Process URL encoded 
+app.use(cors);
+  //Process URL encoded 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 
 MongoClient.connect(db.url, {
     useNewUrlParser: true
