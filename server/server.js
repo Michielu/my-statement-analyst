@@ -8,7 +8,7 @@ const db = require('./config/db');
 const app = express();
 
 const port = 8000;
-app.use(cors);
+// app.use(cors); //This blocks connecting to mlab
   //Process URL encoded 
 app.use(bodyParser.urlencoded({
     extended: true
