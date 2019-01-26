@@ -22,7 +22,7 @@ module.exports = function (app, db) {
     });
   });
 
-  app.delete('/notes/:id', (req, res) => {
+  app.delete('/notes/:id', (req, res) => { 
     const id = req.params.id;
     const details = {
       '_id': new ObjectID(id)
