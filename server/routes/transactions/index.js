@@ -53,25 +53,44 @@ const getAllFromUser = (app, db) => {
     })
 }
 
-const getTransFromID=(app, db)=>{
-    app.get('/t/:id', (req, res)=>{
+const getTransFromID = (app, db) => {
+    app.get('/t/:id', (req, res) => {
         const id = req.params.id;
         const details = {
             '_id': new ObjectID(id)
-          };
-          db.collection('transactions').findOne(details, (err, item) => {
+        };
+        db.collection('transactions').findOne(details, (err, item) => {
             if (err) {
-              res.send({
-                'error': 'An error has occurred'
-              });
+                res.send({
+                    'error': 'An error has occurred'
+                });
             } else {
-              res.send(item);
+                res.send(item);
             }
-          });
+        });
     })
 }
+const deleteTransaction = (app, db) => {
+    app.delete('/t/:id', (req, res) => {
+        const id = req.params.id;
+        const details = {
+            '_id': new ObjectID(id)
+        };
+        db.collection('transactions').remove(details, (err, item) => {
+            if (err) {
+                res.send({
+                    'error': 'An error has occurred'
+                });
+            } else {
+                res.send('Transaction ' + id + ' deleted!');
+            }
+        });
+    });
+}
+
 
 module.exports = (app, db) => {
+    deleteTransaction(app, db);
     getAllFromUser(app, db);
     getTransFromID(app, db);
     postTransaction(app, db);
