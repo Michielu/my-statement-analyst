@@ -53,7 +53,26 @@ const getAllFromUser = (app, db) => {
     })
 }
 
+const getTransFromID=(app, db)=>{
+    app.get('/t/:id', (req, res)=>{
+        const id = req.params.id;
+        const details = {
+            '_id': new ObjectID(id)
+          };
+          db.collection('transactions').findOne(details, (err, item) => {
+            if (err) {
+              res.send({
+                'error': 'An error has occurred'
+              });
+            } else {
+              res.send(item);
+            }
+          });
+    })
+}
+
 module.exports = (app, db) => {
     getAllFromUser(app, db);
+    getTransFromID(app, db);
     postTransaction(app, db);
 }
