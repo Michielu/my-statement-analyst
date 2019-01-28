@@ -88,10 +88,37 @@ const deleteTransaction = (app, db) => {
     });
 }
 
+const updateTransaction = (app, db) =>{
+    app.put('/t/u/:id', (req, res) => {
+        const id = req.params.id;
+        const details = {
+          '_id': new ObjectID(id)
+        };
+        const transaction = {
+            labels: req.body.labels,
+            dateOfPurchase: req.body.dateOfPurchase,
+            dateOfLog: new Date(),
+            cost: req.body.cost,
+            user: req.body.user,
+            notes: req.body.notes
+        };
+        db.collection('transactions').replaceOne(details, transaction, (err, result) => {
+          if (err) {
+            res.send({
+              'error': 'An error has occurred'
+            });
+          } else {
+            res.send(transaction);
+          }
+        });
+      });
+}
+
 
 module.exports = (app, db) => {
     deleteTransaction(app, db);
     getAllFromUser(app, db);
     getTransFromID(app, db);
     postTransaction(app, db);
+    updateTransaction(app,db);
 }
