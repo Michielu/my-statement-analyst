@@ -24,6 +24,29 @@ function postTransaction(app, db) {
     });
 }
 
+const getAll = (app, db) =>{
+    app.get("/t/a", (req, res)=>{
+        db.collection('transactions').find((err, cursor) => {
+            if (err) {
+                console.log("err: ", err)
+                res.send({
+                    'error': 'An error has occurred'
+                });
+            } else {
+                cursor.toArray().then((individualTrans) => {
+                    console.log(individualTrans);
+                    res.send(individualTrans);
+                }).catch((e) => {
+                    console.log("err: ", err)
+                    res.send({
+                        "error": "An error has occured"
+                    });
+                })
+            }
+        });
+    })
+}
+
 const getAllFromUser = (app, db) => {
     app.get('/t/u/:userid', (req, res) => {
         const userID = req.params.userid;
@@ -117,6 +140,7 @@ const updateTransaction = (app, db) =>{
 
 module.exports = (app, db) => {
     deleteTransaction(app, db);
+    getAll(app, db);
     getAllFromUser(app, db);
     getTransFromID(app, db);
     postTransaction(app, db);
