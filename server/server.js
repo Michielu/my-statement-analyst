@@ -12,8 +12,8 @@ const port = 8000;
   //Process URL encoded 
 app.use(bodyParser.urlencoded({
     extended: true
-}));
-
+})); 
+ 
 
 MongoClient.connect(db.url, {
     useNewUrlParser: true
