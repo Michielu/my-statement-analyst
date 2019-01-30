@@ -10,15 +10,6 @@ import './App.css';
 
 class App extends Component {
 
-  postNote(){
-    axios.post("http://localhost:8000/notes", {
-      "text": "this is a body3",
-      "title": "this is a title3",    
-    }).then(function (response) {
-      console.log(response);
-    }).catch((e)=>console.log(e));
-  }
-
   postTransaction() {
     const date = new Date();
     const data = {
@@ -32,7 +23,7 @@ class App extends Component {
 
     axios({
         method: "post",
-        url: "http://localhost:8000/t",
+        url: "/t",
         // headers: { 'content-type': 'application/x-www-form-urlencoded' },
         data: qs.stringify(data)
       })
@@ -42,7 +33,7 @@ class App extends Component {
   }
 
   getAll() {
-    axios.get("http://localhost:8000/t/a").then((res) => {
+    axios.get("/t/a").then((res) => {
       console.log("res: ", res);
     }).catch((e) => {
       console.log("err: ", e.response);
@@ -50,7 +41,7 @@ class App extends Component {
   }
 
   getTransID() {
-    axios.get("http://localhost:8000/t/5c4b9ff93adf4b56737ca390", {}).then((res) => {
+    axios.get("/t/5c4b9ff93adf4b56737ca390", {}).then((res) => {
       console.log(res)
     }).catch((e) => console.log(e));
   }
