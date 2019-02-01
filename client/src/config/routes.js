@@ -2,6 +2,7 @@
 import React from 'react';
 
 import Home from '../components/Home';
+import AllTrans from '../components/AllTrans'
 
 
 const routes = [
@@ -18,7 +19,7 @@ const routes = [
     text: "All Transactions",
     glyphicon: "glyphicon-remove-sign",
     title: true,
-    main: () => <div>All Trans</div>
+    main: () => <AllTrans/>
   }
 
 ];
