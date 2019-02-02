@@ -1,12 +1,14 @@
 import axios from 'axios';
 import qs from 'qs';
 
-const getAll = () => {
-    axios.get("/t/a").then((res) => {
-        console.log("res: ", res);
-    }).catch((e) => {
+const getAll = async () => {
+    try{
+       let res= await axios.get("/t/a");
+       console.log("res: ", res);
+       return res;
+    } catch (e){
         console.log("err: ", e.response);
-    })
+    }
 }
 
 const getTransID = () => {
