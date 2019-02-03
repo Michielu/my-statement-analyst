@@ -57,7 +57,8 @@ import React, {
       <h2>Transactions are: </h2>
                 <Table  onRow={(record) => {
                   return {
-                    onClick: () => {this.props.toggleAllTrans(record)},       // click row
+                    onClick: () => {
+                      this.props.toggleAllTrans(record)},       // click row
 
                   };
                 }}

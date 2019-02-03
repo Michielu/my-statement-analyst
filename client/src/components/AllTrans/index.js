@@ -4,8 +4,8 @@ import React, {
 
 
 
-import IndividualTrans from '../IndividualTrans';
-import AllTransactions from './allTransactions';
+import IndividualTrans from './IndividualTrans';
+import AllTransactions from './AllTransactions';
 
 class AllTrans extends Component {
   constructor(props) {
@@ -35,11 +35,10 @@ class AllTrans extends Component {
 
     if(this.state.allTrans){
       pageDisplay = (
-          <AllTransactions toggleAllTrans={()=>this.toggleAllTrans()}/>
+          <AllTransactions toggleAllTrans={this.toggleAllTrans}/>
       )
     } else {
-      console.log("Switch pages!");
-      pageDisplay= (<IndividualTrans transactions={this.individualTrans} goBack={()=> this.toggleAllTrans()}></IndividualTrans>)
+      pageDisplay= (<IndividualTrans transactions={this.state.individualTrans} goBack={()=> this.toggleAllTrans}></IndividualTrans>)
     }
 
     return (
