@@ -55,8 +55,14 @@ class Home extends Component {
 
     return (< div >
       <h2>Transactions are: </h2>
-      <Table dataSource={dataSource} columns={columns} />
-    </div>
+      <Table  onRow={(record, rowIndex) => {
+                  return {
+                    onClick: () => {console.log("click: ", record)},       // click row
+
+                  };
+                }}
+                dataSource={dataSource} columns={columns} />
+      </div>
     );
   }
 }
