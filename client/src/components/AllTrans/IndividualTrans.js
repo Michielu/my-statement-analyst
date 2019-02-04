@@ -2,8 +2,9 @@ import React, {
     Component
   } from 'react';
   
-  import {Card, List} from 'antd';
+  import {Card, Button, List, Popconfirm, message} from 'antd';
 
+  import {deleteTransaction} from '../../couriers/'
   
   
   class IndividualTrans extends Component {
@@ -24,8 +25,22 @@ import React, {
         "Notes: " + trans.notes
       ]; 
 
-  
-      return (< div >
+      const popConformTitle = "Are you sure you want to delete transaction? This action cannot be undone"
+
+      function confirm(id, goBack) {
+        console.log(id);
+        deleteTransaction(id);
+        goBack();
+        message.success('Click on Yes');
+      }
+      
+      function cancel(e) {
+        console.log(e);
+        message.error('Click on No');
+      }
+
+      return (
+      < div >
                 <Card
                 title={this.props.transactions.dateOfPurchase}
                 
@@ -35,7 +50,12 @@ import React, {
                  renderItem={item => (<List.Item>{item}</List.Item>)}/>
                 {/* {this.props.transactions} */}
                 </Card>
-            <button onClick= {this.props.goBack()}>Go back</button>
+                <Button type="primary" onClick= {this.props.goBack()}>Go Back</Button>
+
+            <Popconfirm title={popConformTitle} onConfirm={()=>confirm(this.props.transactions._id, this.props.goBack())} onCancel={cancel} okText="Yes" cancelText="No">
+                <Button type="danger"> Delete Transaction</Button>
+            </Popconfirm>
+
         </div>
       );
     }

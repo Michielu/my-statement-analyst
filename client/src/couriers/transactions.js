@@ -1,6 +1,17 @@
 import axios from 'axios';
 import qs from 'qs';
 
+
+const deleteTransaction = async (id) =>{
+    try{
+        let res =await axios.delete('/t/'+id);
+        console.log("Deleted Transaction", res);
+        return res;
+    }catch(e){
+        console.log("err: ", e);
+    }
+}
+
 const getAll = async () => {
     try{
        let res= await axios.get("/t/a");
@@ -42,6 +53,7 @@ const postTransaction = () => {
 
 
 export {
+    deleteTransaction,
     getAll,
     getTransID,
     postTransaction
