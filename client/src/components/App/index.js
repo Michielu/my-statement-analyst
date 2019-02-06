@@ -42,6 +42,12 @@ class App extends Component {
                     <span> All Transaction </span>
                   </Link>
                 </Menu.Item>
+                <Menu.Item key="3">
+                  <Link to="/a">
+                    <Icon type="addTrans" />
+                    <span> Add Transaction </span>
+                  </Link>
+                </Menu.Item>
               </Menu>
             </Sider>
             <Content> <Card> {this.routePaths()} </Card> </Content>
