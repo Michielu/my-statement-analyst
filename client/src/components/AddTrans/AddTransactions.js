@@ -3,9 +3,13 @@ import React, {
 } from 'react';
 
 import {
-    Form, Input, Tooltip, Icon, Button, Select
+    DatePicker, Form, Input, Tooltip, Icon, Button, Select
   } from 'antd';
+
+  import moment from 'moment';
+
   
+
   const { Option } = Select;
 
 
@@ -19,23 +23,13 @@ class AddTransactions extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
+              values.DateOfPurchase = values.DateOfPurchase.format();
             console.log('Received values of form: ', values);
           }
         });
       }
 
     render() {
-        // let trans = this.props.transactions;
-        // console.log(this.props.transactions);
-        // let data = [
-        //     "Cost: " + trans.cost,
-        //     "Date of Log: " + trans.dateOfLog,
-        //     "Date of Purchase: " + trans.dateOfPurchase,
-        //     "Labels: " + trans.labels,
-        //     "Notes: " + trans.notes
-        // ];
-
-
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
@@ -70,6 +64,15 @@ class AddTransactions extends Component {
 
         // add users 
         // add date of log
+
+        function onChange(date, dateString) {
+            console.log(date, dateString);
+          }
+
+        const disableDate =(current) => {
+            return current && current > moment().endOf('day');
+          }
+
         return ( 
             <Form onSubmit={this.handleSubmit}>
                 <Form.Item
@@ -80,9 +83,12 @@ class AddTransactions extends Component {
                         </span>
                     )}
                 >
-                {getFieldDecorator('Date of Purchase')(
-                    <Input style={{ width: '100%' }} />
-                )}
+                {getFieldDecorator('DateOfPurchase', {
+                    initialValue: moment(),
+                    rules: [{required: true}]
+                })(
+                    <DatePicker  disabledDate={disableDate} onChange={onChange}/>
+                 )} 
                 </Form.Item>
                 <Form.Item
                  {...formItemLayout}
@@ -106,7 +112,7 @@ class AddTransactions extends Component {
                         </span>
                     )}
                 >
-                {getFieldDecorator('cost', {
+                {getFieldDecorator('Cost', {
                     rules: [{ required: true, message: 'Please input your purchase cost!' }],
                 })(
                     <Input style={{ width: '100%' }} />
@@ -120,7 +126,7 @@ class AddTransactions extends Component {
                         </span>
                     )}
                 >
-                {getFieldDecorator('notes')(
+                {getFieldDecorator('Notes')(
                     <Input style={{ width: '100%' }} />
                 )}
                 </Form.Item>
