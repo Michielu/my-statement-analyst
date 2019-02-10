@@ -6,7 +6,7 @@ const getLabels = async (id) =>{
     try{
         let res =await axios.get('/label/a/'+id);
         console.log("Got all labels", res);
-        return res;
+        return res.data;
     }catch(e){
         console.log("err: ", e);
     }
