@@ -5,9 +5,18 @@ import {
     postTransaction
 } from './transactions';
 
+import {
+    createLabel,
+    deleteLabel,
+    getLabels
+} from './labels';
+
 export {
     deleteTransaction,
     getAll,
     getTransID,
-    postTransaction
+    postTransaction,
+    createLabel,
+    deleteLabel,
+    getLabels
 }
