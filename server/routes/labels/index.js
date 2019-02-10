@@ -51,6 +51,7 @@ function deleteLabel(app, db){
 
 //Post label from user 
 function createLabel(app, db){
+  // TODO check if label is already created. 
     app.post('/label', (req, res) => {
         const label = {
           user: req.body.user,
