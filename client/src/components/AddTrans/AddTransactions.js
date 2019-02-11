@@ -18,7 +18,8 @@ class AddTransactions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            labels: ''
+            labels: '',
+            visible: false
         }
         
        
@@ -26,7 +27,7 @@ class AddTransactions extends Component {
 
     async componentDidMount() {
         const labels = await getLabels(userID);
-        console.log("Labels are :", labels)
+        console.log("Labels are :", labels);
         this.setState(() => {
           return { labels: labels };
         });
@@ -42,6 +43,35 @@ class AddTransactions extends Component {
           }
         });
       }
+
+
+      /** Modal functions  */
+      showModal = () => {
+        this.setState({
+          visible: true,
+        });
+      }
+    
+      handleOk = async(e) => {
+        console.log(e);
+        let a = document.getElementById("NewLabelText");
+        console.log("A: ", a.value)
+                //TODO check valid input 
+        await createLabel(a.value)
+        let labels = await getLabels(userID);
+        this.setState({
+          visible: false,
+          labels: labels
+        });
+      }
+    
+      handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+          visible: false,
+        });
+      }
+      /** End Modal functions */
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -99,6 +129,10 @@ class AddTransactions extends Component {
             });
           }
         
+          const addLabel = ()=>{
+
+          }
+
         return ( 
             <Form onSubmit={this.handleSubmit}>
                 <Form.Item
@@ -138,7 +172,18 @@ class AddTransactions extends Component {
                     {children}
                     </Select>
                     
-                <Button onClick={()=>console.log("create label")}>Create Label {/* TODO use Modal*/ }</Button>
+                <Button onClick={this.showModal}>Create Label {/* TODO use Modal*/ }</Button>
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    >
+                    {/* <p>Enter new label name</p> */}
+                    <Input id="NewLabelText"></Input>
+                    
+                </Modal>
+ 
                     </div>
                     
                     // <Input style={{ width: '100%' }} />
@@ -158,6 +203,7 @@ class AddTransactions extends Component {
                     <Input style={{ width: '100%' }} />
                 )}
                 </Form.Item>
+
                 <Form.Item
                  {...formItemLayout}
                     label={(
