@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import {
-    DatePicker, Form, Input, Tooltip, Icon, Button, Select, Modal
+    DatePicker, Form, Input, Tooltip, Icon, Button, Select, message,  Modal
   } from 'antd';
 
   import moment from 'moment';
@@ -21,8 +21,6 @@ class AddTransactions extends Component {
             labels: '',
             visible: false
         }
-        
-       
     }
 
     async componentDidMount() {
@@ -53,16 +51,28 @@ class AddTransactions extends Component {
       }
     
       handleOk = async(e) => {
-        console.log(e);
         let a = document.getElementById("NewLabelText");
-        console.log("A: ", a.value)
-                //TODO check valid input 
-        await createLabel(a.value)
+        let isDuplicateLabel = false;
         let labels = await getLabels(userID);
-        this.setState({
-          visible: false,
-          labels: labels
-        });
+        for(let i=0; i <labels.length; i++){
+          if(labels[i].text === a.value){
+            isDuplicateLabel = true;
+            break;
+          }
+        }
+        if(isDuplicateLabel){
+          message.error('Duplicate label. Label not created');
+          this.setState({
+            visible: false
+          })
+        } else {
+            await createLabel(a.value)
+            labels = await getLabels(userID);
+            this.setState({
+              visible: false,
+              labels: labels
+            });
+        }       
       }
     
       handleCancel = (e) => {
@@ -99,15 +109,6 @@ class AddTransactions extends Component {
             },
         },
         };
-
-
-        //Cost
-        //Date of purchase
-        //Labels
-        //notes
-
-        // add users 
-        // add date of log
 
         function onChange(date, dateString) {
             console.log(date, dateString);
