@@ -2,7 +2,7 @@ import React, {
     Component
   } from 'react';
   
-  import {Card, Table} from 'antd';
+  import {Card, Table, Tag} from 'antd';
 
   import {
     getAll,
@@ -39,6 +39,26 @@ import React, {
           title: 'Labels',
           dataIndex: 'labels',
           key: 'labels',
+          render: (labels) => {
+            if(labels){
+              return (
+                <span>
+                {
+                  labels.map(tag => {
+                    //Add Color adjustments depending on tag
+                    return <Tag color={'blue'} key={tag}>{tag}</Tag>;
+                    }
+                )}
+              </span>
+              )
+            } else {
+              return (
+                <span>
+                  <p>No label</p>
+                </span>
+              )
+            }
+          }
         }, {
           title: 'DateOfPurchase',
           dataIndex: 'dateOfPurchase',
