@@ -42,23 +42,23 @@ import React, {
           render: (labels) => {
             if(labels){
               return (
-                <span>
-                {
-                  labels.map(tag => {
-                    //Add Color adjustments depending on tag
-                    return <Tag color={'blue'} key={tag}>{tag}</Tag>;
-                    }
-                )}
-              </span>
+                <span>                
+                  {
+                    labels.map(tag => {
+                    // Change colors depending on the label  
+                      return <Tag color={'blue'} key={tag}>{tag.toUpperCase()}</Tag>;
+                      })
+                  }
+                </span>
               )
             } else {
               return (
                 <span>
-                  <p>No label</p>
+                  <p>No Label</p>
                 </span>
               )
             }
-          }
+          }          
         }, {
           title: 'DateOfPurchase',
           dataIndex: 'dateOfPurchase',
