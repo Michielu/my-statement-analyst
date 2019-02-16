@@ -118,21 +118,23 @@ class AddTransactions extends Component {
             return current && current > moment().endOf('day');
           }
 
-          function handleSelectChange(value) {
-            console.log(`selected ${value}`);
-          }
-
           const children = [];
-        //   console.log("labels: ", this.state.labels);
           if(this.state.labels){
             this.state.labels.forEach((label)=>{
                 children.push(<Option key={label._id}>{label.text}</Option>)
             });
           }
         
-          const addLabel = ()=>{
 
+          const valueFormatter = e => e.target.value.replace(/\D./, '');
+          
+          const handleSelectChange = (value) => {
+            console.log(value);
+            this.props.form.setFieldsValue({
+              Labels:  value
+            });
           }
+
 
         return ( 
             <Form onSubmit={this.handleSubmit}>
@@ -160,20 +162,19 @@ class AddTransactions extends Component {
                     )}
                 >
                 {getFieldDecorator('Labels', {
-                    rules: [{ required: true, message: 'Please input your purchase label/s' }],
+                    rules: [{ type:"array", required: true, message: 'Please input your purchase label/s' }],
                 })(
                     <div>
                     <Select
                         mode="multiple"
                         style={{ width: '100%' }}
                         placeholder="Please select"
-                        // defaultValue={['a10', 'c12']}
                         onChange={handleSelectChange}
                     >
                     {children}
                     </Select>
                     
-                <Button onClick={this.showModal}>Create Label {/* TODO use Modal*/ }</Button>
+                <Button onClick={this.showModal}>Create Label </Button>
                 <Modal
                     title="Basic Modal"
                     visible={this.state.visible}
@@ -199,7 +200,13 @@ class AddTransactions extends Component {
                     )}
                 >
                 {getFieldDecorator('Cost', {
-                    rules: [{ required: true, message: 'Please input your purchase cost!' }],
+                  // getValueFromEvent: valueFormatter,
+                    rules: [{ required: true, 
+                      //TODO input validation
+                      // type: "regexp", 
+                      // pattern: new RegExp("[0-9]*(\.[0-9]{2})?"),
+                      // pattern: new RegExp("\d{0,2}(\.\d{1,2})?"),
+                      message: 'Please input your purchase cost!' }],
                 })(
                     <Input style={{ width: '100%' }} />
                 )}
