@@ -125,16 +125,12 @@ class AddTransactions extends Component {
             });
           }
         
-
-          const valueFormatter = e => e.target.value.replace(/\D./, '');
-          
           const handleSelectChange = (value) => {
             console.log(value);
             this.props.form.setFieldsValue({
               Labels:  value
             });
           }
-
 
         return ( 
             <Form onSubmit={this.handleSubmit}>
@@ -200,13 +196,11 @@ class AddTransactions extends Component {
                     )}
                 >
                 {getFieldDecorator('Cost', {
-                  // getValueFromEvent: valueFormatter,
-                    rules: [{ required: true, 
-                      //TODO input validation
-                      // type: "regexp", 
-                      // pattern: new RegExp("[0-9]*(\.[0-9]{2})?"),
-                      // pattern: new RegExp("\d{0,2}(\.\d{1,2})?"),
-                      message: 'Please input your purchase cost!' }],
+                    rules: [{ 
+                      required: true, 
+                      pattern: new RegExp("^[0-9]*(\.[0-9]{1,2})?$"),
+                      message: 'Please input your purchase cost. Whole number or up to two decimal allowed' 
+                    }],
                 })(
                     <Input style={{ width: '100%' }} />
                 )}
