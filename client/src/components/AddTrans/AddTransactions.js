@@ -8,7 +8,7 @@ import {
 
   import moment from 'moment';
 
- import {createLabel,  deleteLabel,  getLabels} from '../../couriers'; 
+ import {createLabel,  deleteLabel,  getLabels, postTransaction} from '../../couriers'; 
 
   const { Option } = Select;
 
@@ -38,6 +38,7 @@ class AddTransactions extends Component {
           if (!err) {
               values.DateOfPurchase = values.DateOfPurchase.format();
             console.log('Received values of form: ', values);
+            postTransaction(values);
           }
         });
       }

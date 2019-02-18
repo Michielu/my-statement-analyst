@@ -17,7 +17,7 @@ function getAllLabels(app, db){
                 });
             } else {
                 cursor.toArray().then((individualTrans) => {
-                    console.log(individualTrans);
+                    // console.log(individualTrans);
                     res.send(individualTrans);
                 }).catch((e) => {
                     console.log("err: ", err)
@@ -37,7 +37,7 @@ function deleteLabel(app, db){
         const details = {
           '_id': new ObjectID(id)
         };
-        db.collection('labels').remove(details, (err, item) => {
+        db.collection('labels').deleteOne(details, (err, item) => {
           if (err) {
             res.send({
               'error': 'An error has occurred'

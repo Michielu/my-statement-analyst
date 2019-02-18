@@ -28,16 +28,20 @@ const getTransID = () => {
     }).catch((e) => console.log(e));
 }
 
-const postTransaction = () => {
+const postTransaction = (values) => {
     const date = new Date();
+console.log("Values are: ", values)
     const data = {
-        labels: ["label3", "label5"],
-        dateOfPurchase: date,
+        labels: values.Labels,
+        dateOfPurchase: values.DateOfPurchase,
         dateOfLog: date,
-        cost: 10.01,
+        cost: values.Cost,
         user: "5c4b9a0d5ab8c65598e4fd29",
-        notes: "This is made from the react side2"
+        notes: values.Notes
     }
+
+    console.log("Before: ", (data))
+    console.log("After: ", qs.stringify(data))
 
     axios({
             method: "post",

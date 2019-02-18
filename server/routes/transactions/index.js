@@ -11,7 +11,7 @@ function postTransaction(app, db) {
             notes: req.body.notes
         };
 
-        console.log("Transaction: ", transaction);
+        // console.log("Transaction: ", transaction);
         db.collection('transactions').insertOne(transaction, (err, result) => {
             if (err) {
                 res.send({
@@ -34,7 +34,7 @@ const getAll = (app, db) =>{
                 });
             } else {
                 cursor.toArray().then((individualTrans) => {
-                    console.log(individualTrans);
+                    // console.log(individualTrans);
                     res.send(individualTrans);
                 }).catch((e) => {
                     console.log("err: ", err)
@@ -63,7 +63,7 @@ const getAllFromUser = (app, db) => {
                 });
             } else {
                 cursor.toArray().then((individualTrans) => {
-                    console.log(individualTrans);
+                    // console.log(individualTrans);
                     res.send(individualTrans);
                 }).catch((e) => {
                     console.log("err: ", err)
@@ -99,7 +99,7 @@ const deleteTransaction = (app, db) => {
         const details = {
             '_id': new ObjectID(id)
         };
-        db.collection('transactions').remove(details, (err, item) => {
+        db.collection('transactions').deleteOne(details, (err, item) => {
             if (err) {
                 res.send({
                     'error': 'An error has occurred'
