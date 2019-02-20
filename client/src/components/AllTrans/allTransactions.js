@@ -6,6 +6,7 @@ import React, {
 
   import {
     getAll,
+    getLabels,
   } from '../../couriers/index'
   
   
@@ -13,15 +14,26 @@ import React, {
     constructor(props) {
       super(props);
       this.state = {
-        transactions: []
+        transactions: [],
+        labels: []
       }
     }
   
     async componentDidMount() {
         const allTransaction = await getAll();
-        this.setState(() => {
-          return { transactions: allTransaction.data };
+        const allLabels = await getLabels();
+        this.setState( {
+            transactions: allTransaction.data ,
+            labels: allLabels
         });
+      }
+
+      findLabelKey =  (key) =>{
+        for(let i =0; i <this.state.labels.length; i++){
+          if(this.state.labels[i]["_id"] == key){
+            return this.state.labels[i];
+          }
+        }
       }
   
     render() {
@@ -45,8 +57,8 @@ import React, {
                 <span>                
                   {
                     labels.map(tag => {
-                    // Change colors depending on the label  
-                      return <Tag color={'blue'} key={tag}>{tag.toUpperCase()}</Tag>;
+                      const labelTitle = this.findLabelKey(tag);
+                      return <Tag color={'blue'} key={tag}>{labelTitle.text} </Tag>;
                       })
                   }
                 </span>

@@ -3,8 +3,9 @@ import qs from 'qs';
 
 
 const getLabels = async (id) =>{
+    const ide ="5c4b9a0d5ab8c65598e4fd29";
     try{
-        let res =await axios.get('/label/a/'+id);
+        let res =await axios.get('/label/a/'+ide);
         console.log("Got all labels", res);
         return res.data;
     }catch(e){
