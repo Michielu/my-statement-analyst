@@ -74,7 +74,7 @@ import React, {
         }, {
           title: 'DateOfPurchase',
           dataIndex: 'dateOfPurchase',
-          key: 'dateOfPurchase',
+          key: 'dateOfPurchase',  
         }, {
           title: 'DateOfLog',
           dataIndex: 'dateOfLog',
