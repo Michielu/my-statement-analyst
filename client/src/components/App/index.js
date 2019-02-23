@@ -4,6 +4,7 @@ import React, {
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Layout, Menu, Icon, Card } from 'antd';
+import Onboarding from '../Onboarding'
 import routes from '../../config/routes'
 import './App.css';
 
@@ -23,6 +24,14 @@ class App extends Component {
   }
 
   render() {
+    //If user has signed in
+    if(true){
+return (
+  <div>
+    <Onboarding/>
+  </div>
+)
+    }
     return (
       <div className="App">
       <Router>

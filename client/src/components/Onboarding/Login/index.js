@@ -1,7 +1,11 @@
+import React from 'react';
+
 import {
     Form, Icon, Input, Button, Checkbox,
   } from 'antd';
   
+ import './styles.css'; 
+
   class NormalLoginForm extends React.Component {
     handleSubmit = (e) => {
       e.preventDefault();
@@ -41,11 +45,11 @@ import {
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
-            Or <a href="">register now!</a>
+             <a className="register-now" href=""> register now</a>
           </Form.Item>
         </Form>
       );
     }
   }
   
-  export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+  export  const LoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);

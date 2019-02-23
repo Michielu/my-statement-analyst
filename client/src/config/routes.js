@@ -13,7 +13,7 @@ const routes = [
     text: "Home",
     glyphicon: "glyphicon-remove-sign",
     title: true,
-    main: () => <Home></Home>
+    main: () => <Home/>
   }, {
     path: "/t/a",
     exact: true,
