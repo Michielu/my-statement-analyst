@@ -51,6 +51,13 @@ import {
             )}
           </Form.Item>
           <Form.Item>
+            {getFieldDecorator('email', {
+              rules: [{ required: true, message: 'Please type your email!' }],
+            })(
+              <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} type="email" placeholder="email" />
+            )}
+          </Form.Item>
+          <Form.Item>
             <Button type="primary" htmlType="submit" className="register-form-button">
               Register
             </Button>
