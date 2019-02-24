@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Layout, Menu, Icon, Card } from 'antd';
+import {Button,  Layout, Menu, Icon, Card } from 'antd';
 import Onboarding from '../Onboarding'
 import routes from '../../config/routes'
 import './App.css';
@@ -75,6 +75,7 @@ class App extends Component {
                     </Link>
                   </Menu.Item>
                 </Menu>
+              <Button onClick={this.toggleSignIn}> Log out</Button>
               </Sider>
               <Content> <Card> {this.routePaths()} </Card> </Content>
             </Layout>
