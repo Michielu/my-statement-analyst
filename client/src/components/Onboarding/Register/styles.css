@@ -1,0 +1,13 @@
+.register-form {
+    /* max-width: 300px; */
+    margin: 0 auto;
+    max-width: 320px;
+    display: inline-block;
+  }
+ .register-form-button {
+    width: 100%;
+  }
+  .login-now{
+    float: left;
+
+  }

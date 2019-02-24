@@ -6,14 +6,21 @@ import {
   
  import './styles.css'; 
 
-  class NormalLoginForm extends React.Component {
+  class Register extends React.Component {
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
+       
         if (!err) {
           console.log('Received values of form: ', values, this.props);
+          if(values.password !== values.password2){
+            console.log("Passords are not the same"); //TODO find a way to displays this
+            } else {
+                //Go to login page
+                this.props.toggleIsRegister();
+            }
           // TODO do some verification/clear session/etc etc
-          this.props.toggleSignIn();
+        //   this.props.toggleSignIn();
         }
       });
     }
@@ -21,7 +28,7 @@ import {
     render() {
       const { getFieldDecorator } = this.props.form;
       return (
-        <Form onSubmit={this.handleSubmit} className="login-form">
+        <Form onSubmit={this.handleSubmit} className="register-form">
           <Form.Item>
             {getFieldDecorator('userName', {
               rules: [{ required: true, message: 'Please input your username!' }],
@@ -37,21 +44,21 @@ import {
             )}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
+            {getFieldDecorator('password2', {
+              rules: [{ required: true, message: 'Please retype your Password!' }],
             })(
-              <Checkbox>Remember me</Checkbox>
+              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
             )}
-            <a className="login-form-forgot" href="">Forgot password</a>
-            <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="register-form-button">
+              Register
             </Button>
-             <a className="register-now" onClick={this.props.toggleIsRegister}> register now</a>
+             <a className="login-now" href=""> Log in</a>
           </Form.Item>
         </Form>
       );
     }
   }
   
-  export  const LoginForm = Form.create({ name: 'normal_login'})(NormalLoginForm);
+  export  const RegisterForm = Form.create({ name: 'register'})(Register);
