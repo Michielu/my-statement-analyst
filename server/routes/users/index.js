@@ -2,27 +2,6 @@ var ObjectID = require('mongodb').ObjectID;
 var bycrypt = require("../../util/passwords");
 
 function createUser(app, db){
-    // app.post('/u', (req, res) => {
-    //     const user = {
-    //         username: req.body.username,
-    //         password: req.body.password
-    //     };
-
-    //     // TODO Issue #1 Check if username is already used or not 
-
-    //     console.log("User: ", user);
-    //     db.collection('users').insertOne(user, (err, result) => {
-    //         if (err) {
-    //             res.send({
-    //                 'error': 'An error has occurred'
-    //             });
-    //         } else {
-    //             res.send(result.ops[0]);
-    //         }
-    //     });
-    // });
-
-
     app.post('/u', (req, res) => {
         const user = {
             username: req.body.username,
@@ -33,46 +12,37 @@ function createUser(app, db){
         //Check if every field has been set accurately on client side
 
         //Check if username has been used yet. 
+        // TODO hash passwords
 
-        let validUser = true;
+        // let validUser = true;
 
        db.collection("users").find({ 'username': user.username }, { _id: 1, username: 1, email: 1 }).toArray((err, result) => {
             if (err) res.send(error);
-            console.log("in call " + (result));
             if (result.length == 0) {
                 //Hash Password
-                let password = bycrypt.hash(user.password);
-                console.log(password);
-
+                // let newPass = bycrypt.hash(user.password);
+                db.collection('users').insertOne(user, (err, result) => {
+                    if (err) {
+                        res.send({ 'error': 'An error has sending message' });
+                    } else {
+                        res.send(result.ops[0]);
+                    }
+                });
 
             } else {
                 console.log("In invalid: " + result.length + result[1])
-                validUser = false;
+                // validUser = false;
                 res.send("Invalid username");
             }
         });
-
-        if(validUser){
-            user.password = "newpassword";
-            db.collection('users').insertOne(user, (err, result) => {
-                if (err) {
-                    res.send({ 'error': 'An error has sending message' });
-                } else {
-                    res.send(result.ops[0]);
-                }
-            });
-        } 
-        
     });
-
-    
 }
 
 function deleteUser(app, db){
     app.delete('/u/d/:id', (req, res) => {
         const id = req.params.id;
         const details = { '_id': new ObjectID(id) };
-        db.collection('users').remove(details, (err, item) => {
+        db.collection('users').deleteOne(details, (err, item) => {
             if (err) {
                 res.send({ 'error': 'An error has deleting username' });
             } else {
