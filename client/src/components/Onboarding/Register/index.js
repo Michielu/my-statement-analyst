@@ -4,12 +4,14 @@ import {
     Form, Icon, Input, Button, Checkbox,
   } from 'antd';
   
- import './styles.css'; 
+
+import {createUser} from '../../../couriers/';
+import './styles.css'; 
 
   class Register extends React.Component {
-    handleSubmit = (e) => {
+    handleSubmit =  (e) => {
       e.preventDefault();
-      this.props.form.validateFields((err, values) => {
+      this.props.form.validateFields( async (err, values) => {
        
         if (!err) {
           console.log('Received values of form: ', values, this.props);
@@ -17,9 +19,14 @@ import {
             console.log("Passords are not the same"); //TODO find a way to displays this
             } else {
                 //Go to login page
-                this.props.toggleIsRegister();
+                // TODO User createed successfully page
+                const success = await createUser(values);
+                if(success.status == 200){
+                  console.log("Success!")
+                  this.props.toggleIsRegister();
+
+                }
             }
-          // TODO do some verification/clear session/etc etc
         //   this.props.toggleSignIn();
         }
       });

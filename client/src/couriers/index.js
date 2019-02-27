@@ -11,6 +11,11 @@ import {
     getLabels
 } from './labels';
 
+import {
+    createUser,
+    deleteUser
+} from './users';
+
 export {
     deleteTransaction,
     getAll,
@@ -18,5 +23,7 @@ export {
     postTransaction,
     createLabel,
     deleteLabel,
-    getLabels
+    getLabels,
+    createUser,
+    deleteUser
 }

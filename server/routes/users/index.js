@@ -7,7 +7,7 @@ function createUser(app, db){
             username: req.body.username,
             password: req.body.password,
             email: req.body.email.toLowerCase(),
-            hash: ""
+            // hash: ""
         };
         //Check if every field has been set accurately on client side
 
