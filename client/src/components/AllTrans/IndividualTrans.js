@@ -5,6 +5,7 @@ import React, {
   import {Card, Button, List, Popconfirm, message} from 'antd';
 
   import {deleteTransaction} from '../../couriers/'
+  import {PopMessage} from '../../utils'
   
   
   class IndividualTrans extends Component {
@@ -31,12 +32,12 @@ import React, {
         console.log(id);
         deleteTransaction(id);
         goBack();
-        message.success('Click on Yes');
+        PopMessage("Click on Yes");
       }
       
       function cancel(e) {
         console.log(e);
-        message.error('Click on No');
+        PopMessage("Click on No", "error");
       }
 
       return (
