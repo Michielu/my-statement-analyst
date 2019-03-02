@@ -31,21 +31,20 @@ const createUser = async ({username, password, email}) =>{
     }
 }
 
-const signIn = async({username,password})=>{
+const signIn = async(values)=>{
+    //Using post and data. Might be a way to use GET with params
     const data ={
-        username:username,
-        password:password
-    }
+        username:values.username,
+        password:values.password
+    }    
     try{
         let res = await axios({
-            method: 'get',
+            method: 'post',
             url:"/u/s",
             data: qs.stringify(data)
         });
-        console.log("Sign in user", res);
         return res;
-    }catch(e){
-        console.log("err: ", e);
+    } catch(e){
         return e;
     }
 }

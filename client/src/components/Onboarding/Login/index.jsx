@@ -4,16 +4,22 @@ import {
   Form, Icon, Input, Button, Checkbox,
 } from 'antd';
 
+import { message } from '../../../utils/index';
+import { signIn } from '../../../couriers'
 import './styles.css';
 
 class NormalLoginForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values, this.props);
-        // TODO do some verification/clear session/etc etc
-        this.props.toggleSignIn();
+        let res = await signIn(values);
+        if (res.data.success) {
+          // TODO do some verification/clear session/etc etc
+          this.props.toggleSignIn();
+        } else {
+          message("Username/Password doesn't match", "error")
+        }
       }
     });
   }
@@ -23,7 +29,7 @@ class NormalLoginForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
