@@ -40,9 +40,6 @@ console.log("Values are: ", values)
         notes: values.Notes
     }
 
-    console.log("Before: ", (data))
-    console.log("After: ", qs.stringify(data))
-
     axios({
             method: "post",
             url: "/t",
