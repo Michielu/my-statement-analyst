@@ -4,7 +4,7 @@ import React, {
   
   import {Card, Button, List, Popconfirm, message} from 'antd';
 
-  import {deleteTransaction} from '../../couriers/'
+  import {deleteTransaction} from '../../couriers'
   import {PopMessage} from '../../utils'
   
   

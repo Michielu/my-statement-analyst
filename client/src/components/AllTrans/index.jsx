@@ -4,8 +4,8 @@ import React, {
 
 
 
-import IndividualTrans from './IndividualTrans';
-import AllTransactions from './AllTransactions';
+import IndividualTrans from './IndividualTrans.jsx';
+import AllTransactions from './AllTransactions.jsx';
 
 class AllTrans extends Component {
   constructor(props) {

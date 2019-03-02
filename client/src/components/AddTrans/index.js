@@ -1,3 +1,3 @@
-import AddTransactions from './AddTransactions';
+import AddTransactions from './AddTransactions.jsx';
 
 export default AddTransactions;

@@ -1,9 +1,9 @@
 
 import React from 'react';
 
-import Home from '../components/Home';
-import AllTrans from '../components/AllTrans';
-import AddTrans from '../components/AddTrans';
+import Home from '../components/Home/index';
+import AllTrans from '../components/AllTrans/index';
+import AddTrans from '../components/AddTrans/index';
 
 
 const routes = [
