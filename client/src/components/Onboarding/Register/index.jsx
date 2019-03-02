@@ -4,7 +4,7 @@ import {
   Form, Icon, Input, Button, Checkbox,
 } from 'antd';
 
-
+import {message} from '../../../utils/index';
 import { createUser } from '../../../couriers/index';
 import './styles.css';
 
@@ -16,13 +16,14 @@ class Register extends React.Component {
       if (!err) {
         console.log('Received values of form: ', values, this.props);
         if (values.password !== values.password2) {
-          console.log("Passords are not the same"); //TODO find a way to displays this
+          message("Registration Failed: Please make sure passwords are the same", "error", 5);
         } else {
           //Go to login page
-          // TODO User createed successfully page
           const success = await createUser(values);
+
           if (success.status == 200) {
             console.log("Success!")
+            message("User created successfully");
             this.props.toggleIsRegister();
 
           }

@@ -15,8 +15,6 @@ const loading = (mes) => {
  * @param {string} type 
  *    type options: "success", "error", "warning", "info",  and "loading" 
  */
-const PopMessage = (mes, type = "success") => {
+export const PopMessage = (mes, type = "success") => {
     message[type](mes);
 }
-
-export default PopMessage;

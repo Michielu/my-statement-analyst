@@ -1,5 +1,5 @@
-import PopMessage from './message';
+import {PopMessage as message } from './message';
 
 export {
-    PopMessage
+    message
 }
