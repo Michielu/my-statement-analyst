@@ -13,7 +13,8 @@ import {
 
 import {
     createUser,
-    deleteUser
+    deleteUser,
+    signIn
 } from './users';
 
 export {
@@ -25,5 +26,6 @@ export {
     deleteLabel,
     getLabels,
     createUser,
-    deleteUser
+    deleteUser,
+    signIn
 }

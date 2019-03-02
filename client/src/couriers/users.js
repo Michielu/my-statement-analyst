@@ -11,13 +11,12 @@ const deleteUser = async (id) =>{
     }
 }
 
-const createUser = async ({usrname, password, email}) =>{
+const createUser = async ({username, password, email}) =>{
     const data ={
-        usrname: usrname,
+        username: username,
         password: password,
         email: email
     }
-
     try{
         let res =await axios({
             method: 'post',
@@ -32,7 +31,27 @@ const createUser = async ({usrname, password, email}) =>{
     }
 }
 
+const signIn = async({username,password})=>{
+    const data ={
+        username:username,
+        password:password
+    }
+    try{
+        let res = await axios({
+            method: 'get',
+            url:"/u/s",
+            data: qs.stringify(data)
+        });
+        console.log("Sign in user", res);
+        return res;
+    }catch(e){
+        console.log("err: ", e);
+        return e;
+    }
+}
+
 export {
     createUser,
-    deleteUser
+    deleteUser,
+    signIn
 }
