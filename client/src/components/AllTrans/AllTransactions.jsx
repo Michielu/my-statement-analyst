@@ -9,6 +9,10 @@ import {
   getLabels,
 } from '../../couriers/index'
 
+import {
+  convertDate
+} from '../../utils'
+
 
 class AllTransactions extends Component {
   constructor(props) {
@@ -75,10 +79,24 @@ class AllTransactions extends Component {
       title: 'DateOfPurchase',
       dataIndex: 'dateOfPurchase',
       key: 'dateOfPurchase',
+      render: (dop) => {
+        return (
+          <span>
+            <p>{convertDate(dop)}</p>
+          </span>
+        )
+      }
     }, {
       title: 'DateOfLog',
       dataIndex: 'dateOfLog',
       key: 'dateOfLog',
+      render: (dol) => {
+        return (
+          <span>
+            <p>{convertDate(dol)}</p>
+          </span>
+        )
+      }
     }, {
       title: 'Cost',
       dataIndex: 'cost',
