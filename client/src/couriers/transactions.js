@@ -2,22 +2,22 @@ import axios from 'axios';
 import qs from 'qs';
 
 
-const deleteTransaction = async (id) =>{
-    try{
-        let res =await axios.delete('/t/'+id);
+const deleteTransaction = async (id) => {
+    try {
+        let res = await axios.delete('/t/' + id);
         console.log("Deleted Transaction", res);
         return res;
-    }catch(e){
+    } catch (e) {
         console.log("err: ", e);
     }
 }
 
 const getAll = async () => {
-    try{
-       let res= await axios.get("/t/a");
-       console.log("res: ", res);
-       return res;
-    } catch (e){
+    try {
+        let res = await axios.get("/t/a");
+        console.log("res: ", res);
+        return res;
+    } catch (e) {
         console.log("err: ", e.response);
     }
 }
@@ -30,7 +30,7 @@ const getTransID = () => {
 
 const postTransaction = (values) => {
     const date = new Date();
-console.log("Values are: ", values)
+    console.log("Values are: ", values)
     const data = {
         labels: values.Labels,
         dateOfPurchase: values.DateOfPurchase,

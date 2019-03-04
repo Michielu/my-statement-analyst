@@ -74,6 +74,12 @@ class App extends Component {
                         <span> Add Transaction </span>
                       </Link>
                     </Menu.Item>
+                    <Menu.Item key="4">
+                      <Link to="/range">
+                        <Icon type="transRange" />
+                        <span> Transaction Range </span>
+                      </Link>
+                    </Menu.Item>
                   </Menu>
                   <Button onClick={this.toggleSignIn}> Log out</Button>
                 </Sider>
