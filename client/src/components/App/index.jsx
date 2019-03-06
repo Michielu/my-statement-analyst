@@ -39,6 +39,21 @@ class App extends Component {
     );
   }
 
+  menuItems() {
+    return (
+      <Menu>
+        {routes.map((route, index) => (
+          <Menu.Item key={index}>
+            <Link to={route.path}>
+              <Icon type={route.glyphicon} />
+              <span> {route.text} </span>
+            </Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    )
+  }
+
   render() {
     //If user has signed in
     if (!this.state.signIn) {
@@ -56,30 +71,7 @@ class App extends Component {
               <Layout style={{ minHeight: '100vh' }}>
                 <Sider collapsible theme="light" >
                   <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-                    <Menu.Item key="1">
-                      <Link to="/">
-                        <Icon type="home" />
-                        <span> Home </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                      <Link to="/t/a">
-                        <Icon type="allTrans" />
-                        <span> All Transaction </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                      <Link to="/a">
-                        <Icon type="addTrans" />
-                        <span> Add Transaction </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item key="4">
-                      <Link to="/range">
-                        <Icon type="transRange" />
-                        <span> Transaction Range </span>
-                      </Link>
-                    </Menu.Item>
+                    {this.menuItems()}
                   </Menu>
                   <Button onClick={this.toggleSignIn}> Log out</Button>
                 </Sider>
