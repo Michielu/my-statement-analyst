@@ -36,3 +36,10 @@ export const convertDate = (date) => {
     let day = arr[2].substring(0, 2);
     return months(arr[1]) + " " + day + " " + arr[0];
 }
+
+export const toTimestamp = (date) => {
+    console.log('Before: ', date);
+    let dateObj = Date.parse(date);
+    console.log("After: ", dateObj);
+    return dateObj;
+}

@@ -2,10 +2,12 @@ import {
     PopMessage as message
 } from './message';
 import {
-    convertDate
+    convertDate,
+    toTimestamp
 } from './dates';
 
 export {
     convertDate,
-    message
+    message,
+    toTimestamp
 }
