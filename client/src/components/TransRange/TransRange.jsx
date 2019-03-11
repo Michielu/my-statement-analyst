@@ -7,7 +7,7 @@ import {
     getLabels,
 } from '../../couriers/index'
 
-import { toTimestamp } from '../../utils'
+import { toTimestamp, TableFormat } from '../../utils'
 
 const { RangePicker } = DatePicker;
 
@@ -62,8 +62,7 @@ export default class TransRange extends React.Component {
             return (
                 <div>
                     <RangePicker onChange={this.onChange} />
-                    <h2> Dates selected: </h2>
-                    <p>{this.state.start}</p><p> {this.state.end}</p>
+                    <TableFormat transactions={this.state.filteredTrans} labels={this.state.labels} toggleAllTrans={() => { console.log("Hi") }} />
                 </div>
             )
         } else {
