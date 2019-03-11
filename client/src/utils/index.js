@@ -6,8 +6,13 @@ import {
     toTimestamp
 } from './dates';
 
+import {
+    TableFormat
+} from './TableFormat';
+
 export {
     convertDate,
     message,
-    toTimestamp
+    toTimestamp,
+    TableFormat
 }
