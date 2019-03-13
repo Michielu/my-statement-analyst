@@ -15,7 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      signIn: false
+      signIn: false,
+      current: '1'
     }
 
     this.toggleSignIn = this.toggleSignIn.bind(this);
@@ -54,6 +55,14 @@ class App extends Component {
     )
   }
 
+  //With redux: have it show which page is loading and update it
+  onMenuCLick = (e) => {
+    console.log("Click: ", e)
+    this.setState({
+      current: e.key,
+    });
+  }
+
   render() {
     //If user has signed in
     if (!this.state.signIn) {
@@ -70,7 +79,13 @@ class App extends Component {
             <div>
               <Layout style={{ minHeight: '100vh' }}>
                 <Sider collapsible theme="light" >
-                  <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
+                  <Menu
+                    theme="light"
+                    mode="inline"
+                    // defaultSelectedKeys={['1']}
+                    selectedKeys={[this.state.current]}
+                    onClick={this.onMenuCLick}
+                  >
                     {this.menuItems()}
                   </Menu>
                   <Button onClick={this.toggleSignIn}> Log out</Button>
