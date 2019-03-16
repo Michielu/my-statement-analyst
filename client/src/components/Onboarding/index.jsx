@@ -13,7 +13,6 @@ export default class Onboarding extends React.Component {
     }
 
     toggleIsRegister = () => {
-        console.log("Toggle Is Register");
         this.setState((prevState) => {
             return {
                 isRegister: !prevState.isRegister
@@ -22,7 +21,6 @@ export default class Onboarding extends React.Component {
     }
 
     render() {
-        console.log("Onboarding: ", this.props)
         if (this.state.isRegister) {
             return (
                 <div className="onboarding-main">

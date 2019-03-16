@@ -38,8 +38,6 @@ export const convertDate = (date) => {
 }
 
 export const toTimestamp = (date) => {
-    console.log('Before: ', date);
     let dateObj = Date.parse(date);
-    console.log("After: ", dateObj);
     return dateObj;
 }

@@ -25,7 +25,6 @@ class AddTransactions extends Component {
 
   async componentDidMount() {
     const labels = await getLabels(userID);
-    console.log("Labels are :", labels);
     this.setState(() => {
       return { labels: labels };
     });
@@ -37,7 +36,6 @@ class AddTransactions extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         values.DateOfPurchase = values.DateOfPurchase.format();
-        console.log('Received values of form: ', values);
         postTransaction(values);
       }
     });
@@ -77,7 +75,6 @@ class AddTransactions extends Component {
   }
 
   handleCancel = (e) => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -127,7 +124,6 @@ class AddTransactions extends Component {
     }
 
     const handleSelectChange = (value) => {
-      console.log(value);
       this.props.form.setFieldsValue({
         Labels: value
       });

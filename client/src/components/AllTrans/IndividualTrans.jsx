@@ -17,7 +17,6 @@ class IndividualTrans extends Component {
 
   render() {
     let trans = this.props.transactions;
-    console.log(this.props.transactions);
     let data = [
       "Cost: " + trans.cost,
       "Date of Log: " + convertDate(trans.dateOfLog),
@@ -29,14 +28,12 @@ class IndividualTrans extends Component {
     const popConformTitle = "Are you sure you want to delete transaction? This action cannot be undone"
 
     function confirm(id, goBack) {
-      console.log(id);
       deleteTransaction(id);
       goBack();
       message("Transaction Deleted", "info");
     }
 
     function cancel(e) {
-      console.log(e);
       message("Transaction not deleted", "info");
     }
 
