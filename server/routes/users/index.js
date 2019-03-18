@@ -81,7 +81,7 @@ function signIn(app, db) {
         console.log(req.body)
         const inUsername = req.body.username;
         const inPassword = req.body.password;
-        console.log("in info: ", inUsername, " " , inPassword)
+        console.log("in info: ", inUsername, " ", inPassword)
         db.collection('users').findOne({
             username: inUsername
         }, (err, item) => {
@@ -90,11 +90,13 @@ function signIn(app, db) {
                     'error': 'An error has occurred'
                 });
             } else {
-                console.log('User ' + item.username + ' Found!');
+                console.log('User ' + JSON.stringify(item) + ' Found!');
                 if (inPassword === item.password) {
                     console.log("Passwords match");
                     res.send({
-                        "success": true
+                        "success": true,
+                        "_id": item._id,
+                        "username": item.username
                     });
                 } else {
                     console.log("Passwords don't match!")
@@ -110,6 +112,6 @@ function signIn(app, db) {
 module.exports = (app, db) => {
     //Create User
     createUser(app, db),
-    deleteUser(app, db),
-    signIn(app, db)
+        deleteUser(app, db),
+        signIn(app, db)
 }

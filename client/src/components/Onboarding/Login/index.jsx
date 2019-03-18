@@ -16,7 +16,13 @@ class NormalLoginForm extends React.Component {
         let res = await signIn(values);
         if (res.data.success) {
           // TODO do some verification/clear session/etc etc
+          console.log("Login: ", res);
+          sessionStorage.setItem("id", res.data._id);
+          //Get labels and trans into sessionStorage: 
           this.props.toggleSignIn();
+          const items = { ...sessionStorage };
+          console.log("Items: ", items)
+
         } else {
           message("Username/Password doesn't match", "error")
         }
