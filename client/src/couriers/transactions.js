@@ -31,7 +31,6 @@ const getTransID = () => {
 const postTransaction = (values) => {
     const date = new Date();
     console.log("Values are: ", values)
-    console.log("Getsession id: ", window.sessionStorage.getItem("id"))
 
     const data = {
         labels: values.Labels,

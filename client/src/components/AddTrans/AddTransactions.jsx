@@ -9,10 +9,11 @@ import {
 import moment from 'moment';
 
 import { createLabel, deleteLabel, getLabels, postTransaction } from '../../couriers';
+import { getSessionID, getSessionLabels, setSessionLabels } from '../../utils/sessions';
 
 const { Option } = Select;
 
-const userID = '5c4b9a0d5ab8c65598e4fd29'; //TODO store this information at login
+const userID = getSessionID();
 
 class AddTransactions extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class AddTransactions extends Component {
   }
 
   async componentDidMount() {
-    const labels = await getLabels(userID);
+    const labels = getSessionLabels();
     this.setState(() => {
       return { labels: labels };
     });
@@ -52,7 +53,7 @@ class AddTransactions extends Component {
   handleOk = async (e) => {
     let a = document.getElementById("NewLabelText");
     let isDuplicateLabel = false;
-    let labels = await getLabels(userID);
+    let labels = getSessionLabels();
     for (let i = 0; i < labels.length; i++) {
       if (labels[i].text === a.value) {
         isDuplicateLabel = true;
@@ -66,7 +67,9 @@ class AddTransactions extends Component {
       })
     } else {
       await createLabel(a.value)
-      labels = await getLabels(userID);
+      //TODO find a cleaner way to update session labels
+      const newLabels = await getLabels(userID);
+      labels = setSessionLabels(newLabels);
       this.setState({
         visible: false,
         labels: labels

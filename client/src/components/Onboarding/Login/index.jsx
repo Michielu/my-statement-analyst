@@ -5,6 +5,7 @@ import {
 } from 'antd';
 
 import { message } from '../../../utils/index';
+import { setSessionID, setSessionTrans, setSessionLabels } from '../../../utils/sessions';
 import { getAll, getLabels, signIn } from '../../../couriers'
 
 
@@ -30,13 +31,14 @@ class NormalLoginForm extends React.Component {
   }
 
   storeSession = async (id) => {
-    sessionStorage.setItem("id", id);
+
+    setSessionID(id);
 
     const allTransaction = await getAll();
     const allLabels = await getLabels();
 
-    sessionStorage.setItem("trans", JSON.stringify(allTransaction.data));
-    sessionStorage.setItem("labels", JSON.stringify(allLabels));
+    setSessionTrans(allTransaction.data);
+    setSessionLabels(allLabels);
   }
 
   render() {

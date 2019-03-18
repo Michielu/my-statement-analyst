@@ -4,9 +4,11 @@ import {
   TableFormat
 } from '../../utils'
 
+import { getSessionTrans, getSessionLabels } from '../../utils/sessions';
+
 const AllTransactions = (props) => {
-  return <TableFormat transactions={JSON.parse(sessionStorage.getItem("trans"))}
-    labels={JSON.parse(sessionStorage.getItem("labels"))}
+  return <TableFormat transactions={getSessionTrans()}
+    labels={getSessionLabels()}
     toggleAllTrans={props.toggleAllTrans} />
 }
 
