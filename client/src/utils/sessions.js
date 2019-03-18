@@ -16,7 +16,7 @@ export const getSessionLabels = () => {
 
 
 export const setSessionTrans = (trans) => {
-    return sessionStorage.setItem("trans", JSON.stringify(trans));
+    sessionStorage.setItem("trans", JSON.stringify(trans));
 }
 
 export const getSessionTrans = () => {
@@ -34,4 +34,9 @@ export const getSessionID = () => {
 
 export const clearSessions = () => {
     return sessionStorage.clear();
+}
+
+export const userSignedIn = () => {
+    printSessions();
+    return (sessionStorage.getItem("id") !== null)
 }

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Button, Layout, Menu, Icon, Card } from 'antd';
 import Onboarding from '../Onboarding/index'
 import routes from '../../config/routes.jsx'
+import { userSignedIn, clearSessions } from '../../utils/sessions'
 import './App.css';
 
 
@@ -15,11 +16,12 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      signIn: false,
+      signIn: userSignedIn(),
       current: '1'
     }
 
     this.toggleSignIn = this.toggleSignIn.bind(this);
+    console.log("User signedIn: ", userSignedIn());
   }
 
   toggleSignIn = () => {
@@ -63,6 +65,11 @@ class App extends Component {
     });
   }
 
+  logout = () => {
+    clearSessions();
+    this.toggleSignIn();
+  }
+
   render() {
     //If user has signed in
     if (!this.state.signIn) {
@@ -88,7 +95,7 @@ class App extends Component {
                   >
                     {this.menuItems()}
                   </Menu>
-                  <Button onClick={this.toggleSignIn}> Log out</Button>
+                  <Button onClick={this.logout}> Log out</Button>
                 </Sider>
                 <Content> <Card> {this.routePaths()} </Card> </Content>
               </Layout>
