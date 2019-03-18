@@ -3,12 +3,12 @@ import React, {
 } from 'react';
 
 import {
-  DatePicker, Form, Input, Tooltip, Icon, Button, Select, message, Modal
+  DatePicker, Form, Input, Button, Select, message, Modal
 } from 'antd';
 
 import moment from 'moment';
 
-import { createLabel, deleteLabel, getLabels, postTransaction } from '../../couriers';
+import { createLabel, getLabels, postTransaction } from '../../couriers';
 import { getSessionID, getSessionLabels, setSessionLabels } from '../../utils/sessions';
 
 const { Option } = Select;
@@ -67,12 +67,11 @@ class AddTransactions extends Component {
       })
     } else {
       await createLabel(a.value)
-      //TODO find a cleaner way to update session labels
       const newLabels = await getLabels(userID);
-      labels = setSessionLabels(newLabels);
+      setSessionLabels(newLabels);
       this.setState({
         visible: false,
-        labels: labels
+        labels: newLabels
       });
     }
   }
