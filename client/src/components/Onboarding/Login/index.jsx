@@ -5,7 +5,9 @@ import {
 } from 'antd';
 
 import { message } from '../../../utils/index';
-import { signIn } from '../../../couriers'
+import { getAll, getLabels, signIn } from '../../../couriers'
+
+
 import './styles.css';
 
 class NormalLoginForm extends React.Component {
@@ -15,19 +17,26 @@ class NormalLoginForm extends React.Component {
       if (!err) {
         let res = await signIn(values);
         if (res.data.success) {
-          // TODO do some verification/clear session/etc etc
           console.log("Login: ", res);
-          sessionStorage.setItem("id", res.data._id);
-          //Get labels and trans into sessionStorage: 
           this.props.toggleSignIn();
-          const items = { ...sessionStorage };
-          console.log("Items: ", items)
 
+          //Store sessions 
+          this.storeSession(res.data._id);
         } else {
           message("Username/Password doesn't match", "error")
         }
       }
     });
+  }
+
+  storeSession = async (id) => {
+    sessionStorage.setItem("id", id);
+
+    const allTransaction = await getAll();
+    const allLabels = await getLabels();
+
+    sessionStorage.setItem("trans", JSON.stringify(allTransaction.data));
+    sessionStorage.setItem("labels", JSON.stringify(allLabels));
   }
 
   render() {
