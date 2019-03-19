@@ -24,8 +24,9 @@ function postTransaction(app, db) {
     });
 }
 
-const getAll = (app, db) =>{
-    app.get("/t/a", (req, res)=>{
+// For Dev purposes
+const getAll = (app, db) => {
+    app.get("/t/a", (req, res) => {
         db.collection('transactions').find((err, cursor) => {
             if (err) {
                 console.log("err: ", err)
@@ -63,7 +64,6 @@ const getAllFromUser = (app, db) => {
                 });
             } else {
                 cursor.toArray().then((individualTrans) => {
-                    // console.log(individualTrans);
                     res.send(individualTrans);
                 }).catch((e) => {
                     console.log("err: ", err)
@@ -111,11 +111,11 @@ const deleteTransaction = (app, db) => {
     });
 }
 
-const updateTransaction = (app, db) =>{
+const updateTransaction = (app, db) => {
     app.put('/t/u/:id', (req, res) => {
         const id = req.params.id;
         const details = {
-          '_id': new ObjectID(id)
+            '_id': new ObjectID(id)
         };
         const transaction = {
             labels: req.body.labels,
@@ -126,15 +126,15 @@ const updateTransaction = (app, db) =>{
             notes: req.body.notes
         };
         db.collection('transactions').replaceOne(details, transaction, (err, result) => {
-          if (err) {
-            res.send({
-              'error': 'An error has occurred'
-            });
-          } else {
-            res.send(transaction);
-          }
+            if (err) {
+                res.send({
+                    'error': 'An error has occurred'
+                });
+            } else {
+                res.send(transaction);
+            }
         });
-      });
+    });
 }
 
 
@@ -144,5 +144,5 @@ module.exports = (app, db) => {
     getAllFromUser(app, db);
     getTransFromID(app, db);
     postTransaction(app, db);
-    updateTransaction(app,db);
+    updateTransaction(app, db);
 }
