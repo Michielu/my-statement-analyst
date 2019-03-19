@@ -3,9 +3,9 @@ import { DatePicker } from 'antd';
 import moment from 'moment';
 
 import {
-    getAll,
-    getLabels,
-} from '../../couriers/index'
+    getSessionLabels,
+    getSessionTrans
+} from '../../utils/sessions';
 
 import { toTimestamp, TableFormat } from '../../utils'
 
@@ -23,13 +23,13 @@ export default class TransRange extends React.Component {
     }
 
     onDateSelect = async () => {
-        const allTransaction = await getAll();
-        const allLabels = await getLabels();
+        const allTransaction = getSessionTrans();
+        const allLabels = getSessionLabels();
         this.setState({
-            transactions: allTransaction.data,
+            transactions: allTransaction,
             labels: allLabels
         });
-        this.filterDates()
+        this.filterDates(allTransaction)
     }
 
     onChange = (date, dateString) => {
@@ -41,10 +41,10 @@ export default class TransRange extends React.Component {
         this.onDateSelect();
     }
 
-    filterDates = () => {
+    filterDates = (allTransaction) => {
         let filteredTrans = [];
         //TODO: Use Array.filter 
-        this.state.transactions.forEach((trans, i) => {
+        allTransaction.forEach((trans, i) => {
             let d = trans.dateOfPurchase;
             let ts = toTimestamp(d);
             if (ts > this.state.start && ts < this.state.end) {
