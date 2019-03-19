@@ -12,9 +12,9 @@ const deleteTransaction = async (id) => {
     }
 }
 
-const getAll = async () => {
+const getAllFromUser = async (userID) => {
     try {
-        let res = await axios.get("/t/a");
+        let res = await axios.get("/t/u/" + userID);
         console.log("res: ", res);
         return res;
     } catch (e) {
@@ -56,7 +56,7 @@ const postTransaction = (values) => {
 
 export {
     deleteTransaction,
-    getAll,
+    getAllFromUser,
     getTransID,
     postTransaction
 }

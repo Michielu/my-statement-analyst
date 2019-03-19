@@ -1,6 +1,6 @@
 import {
     deleteTransaction,
-    getAll,
+    getAllFromUser,
     getTransID,
     postTransaction
 } from './transactions';
@@ -19,7 +19,7 @@ import {
 
 export {
     deleteTransaction,
-    getAll,
+    getAllFromUser,
     getTransID,
     postTransaction,
     createLabel,

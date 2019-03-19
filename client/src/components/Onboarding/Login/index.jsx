@@ -6,7 +6,7 @@ import {
 
 import { message } from '../../../utils/index';
 import { setSessionID, setSessionTrans, setSessionLabels } from '../../../utils/sessions';
-import { getAll, getLabels, signIn } from '../../../couriers'
+import { getAllFromUser, getLabels, signIn } from '../../../couriers'
 
 
 import './styles.css';
@@ -34,7 +34,7 @@ class NormalLoginForm extends React.Component {
 
     setSessionID(id);
 
-    const allTransaction = await getAll();
+    const allTransaction = await getAllFromUser(id);
     const allLabels = await getLabels();
 
     setSessionTrans(allTransaction.data);
