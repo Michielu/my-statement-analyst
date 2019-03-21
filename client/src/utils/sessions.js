@@ -40,3 +40,11 @@ export const userSignedIn = () => {
     printSessions();
     return (sessionStorage.getItem("id") !== null)
 }
+
+export const setSidebar = (key) => {
+    return sessionStorage.setItem('sidebar', key)
+}
+
+export const getSidebar = () => {
+    return [sessionStorage.getItem('sidebar')];
+}

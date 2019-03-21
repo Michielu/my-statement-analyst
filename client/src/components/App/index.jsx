@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Button, Layout, Menu, Icon, Card } from 'antd';
 import Onboarding from '../Onboarding/index'
 import routes from '../../config/routes.jsx'
-import { userSignedIn, clearSessions } from '../../utils/sessions'
+import { userSignedIn, clearSessions, setSidebar, getSidebar } from '../../utils/sessions'
 import './App.css';
 
 
@@ -17,7 +17,7 @@ class App extends Component {
     super(props)
     this.state = {
       signIn: userSignedIn(),
-      current: '1'
+      route: []
     }
 
     this.toggleSignIn = this.toggleSignIn.bind(this);
@@ -57,12 +57,14 @@ class App extends Component {
     )
   }
 
-  //With redux: have it show which page is loading and update it
   onMenuCLick = (e) => {
-    console.log("Click: ", e)
-    this.setState({
-      current: e.key,
-    });
+    setSidebar(e.key);
+
+    this.setState(() => {
+      return {
+        // route: [e.key]
+      }
+    })
   }
 
   logout = () => {
@@ -89,8 +91,7 @@ class App extends Component {
                   <Menu
                     theme="light"
                     mode="inline"
-                    // defaultSelectedKeys={['1']}
-                    selectedKeys={[this.state.current]}
+                    defaultSelectedKeys={getSidebar() || '1'}
                     onClick={this.onMenuCLick}
                   >
                     {this.menuItems()}
