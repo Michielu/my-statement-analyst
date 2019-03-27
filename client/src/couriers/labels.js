@@ -1,43 +1,47 @@
 import axios from 'axios';
 import qs from 'qs';
 
+import {
+    getSessionID
+} from '../utils/sessions'
 
-const getLabels = async (id) =>{
-    const ide ="5c4b9a0d5ab8c65598e4fd29";
-    try{
-        let res =await axios.get('/label/a/'+ide);
+
+const getLabels = async (id) => {
+    const ide = getSessionID();
+    try {
+        let res = await axios.get('/label/a/' + ide);
         console.log("Got all labels", res);
         return res.data;
-    }catch(e){
+    } catch (e) {
         console.log("err: ", e);
     }
 }
 
-const deleteLabel = async (id) =>{
-    try{
-        let res =await axios.delete('/label/'+id);
+const deleteLabel = async (id) => {
+    try {
+        let res = await axios.delete('/label/' + id);
         console.log("Deleted Label", res);
         return res;
-    }catch(e){
+    } catch (e) {
         console.log("err: ", e);
     }
 }
 
-const createLabel = async (text) =>{
-    const data ={
+const createLabel = async (text) => {
+    const data = {
         text: text,
-        user: '5c4b9a0d5ab8c65598e4fd29'
+        user: getSessionID()
     }
 
-    try{
-        let res =await axios({
+    try {
+        let res = await axios({
             method: 'post',
-            url:"/label",
+            url: "/label",
             data: qs.stringify(data)
         });
         console.log("Post Label", res);
         return res;
-    }catch(e){
+    } catch (e) {
         console.log("err: ", e);
     }
 }

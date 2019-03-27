@@ -1,6 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
 
+import {
+    getSessionID
+} from '../utils/sessions'
 
 const deleteTransaction = async (id) => {
     try {
@@ -30,6 +33,7 @@ const getTransID = () => {
 
 const postTransaction = (values) => {
     const date = new Date();
+    const userID = getSessionID();
     console.log("Values are: ", values)
 
     const data = {
@@ -37,7 +41,7 @@ const postTransaction = (values) => {
         dateOfPurchase: values.DateOfPurchase,
         dateOfLog: date,
         cost: values.Cost,
-        user: "5c4b9a0d5ab8c65598e4fd29",
+        user: userID,
         notes: values.Notes
     }
 
