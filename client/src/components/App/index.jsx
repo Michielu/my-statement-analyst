@@ -96,7 +96,7 @@ class App extends Component {
                   >
                     {this.menuItems()}
                   </Menu>
-                  <Button onClick={this.logout}> Log out</Button>
+                  <Link to='/' onClick={this.logout} > Log out</Link>
                 </Sider>
                 <Content> <Card> {this.routePaths()} </Card> </Content>
               </Layout>
