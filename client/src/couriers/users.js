@@ -12,12 +12,12 @@ const deleteUser = async (id) => {
 }
 
 const createUser = async ({
-    username,
+    userName,
     password,
     email
 }) => {
     const data = {
-        username: username,
+        username: userName,
         password: password,
         email: email
     }
