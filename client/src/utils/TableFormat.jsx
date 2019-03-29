@@ -8,6 +8,8 @@ import {
     convertDate
 } from './dates'
 
+import { displayLabels } from './labelsUtils';
+
 export class TableFormat extends Component {
     findLabelKey = (key) => {
         const lab = this.props.labels;
@@ -34,24 +36,7 @@ export class TableFormat extends Component {
             dataIndex: 'labels',
             key: 'labels',
             render: (labels) => {
-                if (labels) {
-                    return (
-                        <span>
-                            {
-                                labels.map(tag => {
-                                    const labelTitle = this.findLabelKey(tag);
-                                    return <Tag color={'blue'} key={tag}>{labelTitle.text} </Tag>;
-                                })
-                            }
-                        </span>
-                    )
-                } else {
-                    return (
-                        <span>
-                            <p>No Label</p>
-                        </span>
-                    )
-                }
+                return displayLabels(labels);
             }
         }, {
             title: 'DateOfPurchase',

@@ -2,12 +2,12 @@ import React, {
   Component
 } from 'react';
 
-import { Card, Button, List, Popconfirm, Tag } from 'antd';
+import { Card, Button, Popconfirm } from 'antd';
 
 import { deleteTransaction } from '../../couriers'
 import { message, convertDate } from '../../utils'
+import { displayLabels } from '../../utils/labelsUtils';
 
-import { getSessionTrans, getSessionLabels } from '../../utils/sessions';
 
 class IndividualTrans extends Component {
   constructor(props) {
@@ -16,31 +16,8 @@ class IndividualTrans extends Component {
     }
   }
 
-  findLabelKey = (key, lab) => {
-    for (let i = 0; i < lab.length; i++) {
-      if (lab[i]["_id"] == key) {
-        return lab[i];
-      }
-    }
-  }
-
-  displayLabels = (keys, labels) => {
-    return (
-      <span>
-        {
-          keys.map(tag => {
-            const labelTitle = this.findLabelKey(tag, labels);
-            return <Tag color={'blue'} key={tag}>{labelTitle.text} </Tag>;
-          })
-        }
-      </span>
-    )
-  }
-
   displayData = () => {
     let trans = this.props.transactions;
-    const labels = getSessionLabels();
-
     return (
       <div>
         <b>Cost: </b>
@@ -50,7 +27,7 @@ class IndividualTrans extends Component {
         <b> Date of purchase</b>
         <p>{trans.dateOfPurchase}</p>
         <b>Labels: </b>
-        {this.displayLabels(trans.labels, labels)}
+        {displayLabels(trans.labels)}
         <br />
         <b>Notes: </b>
         <p>{trans.notes}</p>
@@ -59,13 +36,6 @@ class IndividualTrans extends Component {
   }
 
   render() {
-    // let data = [
-    //   "Cost: " + trans.cost,
-    //   "Date of Log: " + convertDate(trans.dateOfLog),
-    //   "Date of Purchase: " + convertDate(trans.dateOfPurchase),
-    //   "Labels: " + this.displayLabels(trans.labels, labels),
-    //   "Notes: " + trans.notes
-    // ];
 
     const popConformTitle = "Are you sure you want to delete transaction? This action cannot be undone"
 
@@ -79,18 +49,6 @@ class IndividualTrans extends Component {
       message("Transaction not deleted", "info");
     }
 
-
-    // const displayData = (data) => {
-    //   return (
-    //     <div>
-    //       <b>Cost</b>
-    //       <p>a{data.cost}</p>
-    //       <b> Date of purchase</b>
-    //       <p>{data.dateOfPurchase}</p>
-    //     </div>
-    //   )
-    // }
-
     return (
       < div >
         <Card
@@ -99,9 +57,6 @@ class IndividualTrans extends Component {
           style={{ width: 300 }}
         >
           {this.displayData()}
-          {/* <List dataSource={data}
-            renderItem={item => (<List.Item>{item}</List.Item>)} /> */}
-          {/* {this.props.transactions} */}
         </Card>
         <Button type="primary" onClick={this.props.goBack()}>Go Back</Button>
 
