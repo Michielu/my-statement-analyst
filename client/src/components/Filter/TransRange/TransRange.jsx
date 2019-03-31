@@ -5,9 +5,9 @@ import moment from 'moment';
 import {
     getSessionLabels,
     getSessionTrans
-} from '../../utils/sessions';
+} from '../../../utils/sessions';
 
-import { toTimestamp, TableFormat } from '../../utils'
+import { toTimestamp, TableFormat } from '../../../utils'
 
 const { RangePicker } = DatePicker;
 
@@ -33,12 +33,14 @@ export default class TransRange extends React.Component {
     }
 
     onChange = (date, dateString) => {
-        this.setState({
-            start: toTimestamp(dateString[0]),
-            end: toTimestamp(dateString[1]),
-            selected: true
-        })
-        this.onDateSelect();
+        // this.setState({
+        //     start: toTimestamp(dateString[0]),
+        //     end: toTimestamp(dateString[1]),
+        //     selected: true
+        // })
+
+        this.props.updateRange(dateString[0], dateString[1]);
+        // this.onDateSelect();
     }
 
     filterDates = (allTransaction) => {

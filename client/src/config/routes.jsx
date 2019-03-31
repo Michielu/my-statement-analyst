@@ -4,7 +4,7 @@ import React from 'react';
 import Home from '../components/Home/index';
 import AllTrans from '../components/AllTrans/index';
 import AddTrans from '../components/AddTrans/index';
-import TransRange from '../components/TransRange/index';
+import Filter from '../components/Filter/index';
 
 
 const routes = [
@@ -30,12 +30,12 @@ const routes = [
     title: true,
     main: () => <AddTrans />
   }, {
-    path: "/range",
+    path: "/f",
     exact: true,
-    text: "Transaction Range",
+    text: "Filter Transaction",
     glyphicon: "glyphicon-add-sign",
     title: true,
-    main: () => <TransRange />
+    main: () => <Filter />
   }
 
 ];
