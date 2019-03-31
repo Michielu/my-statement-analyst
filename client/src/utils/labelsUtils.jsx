@@ -16,13 +16,17 @@ const findLabelKey = (key, lab) => {
 export const displayLabels = (keys) => {
     const labels = getSessionLabels();
 
+    const onPressTag = () => {
+        console.log("Pressed : tag")
+    }
+
     if (keys) {
         return (
             <span>
                 {
                     keys.map(tag => {
                         const labelTitle = findLabelKey(tag, labels);
-                        return <Tag color={'blue'} key={tag}>{labelTitle.text} </Tag>;
+                        return <Tag color={'blue'} key={tag} onClick={onPressTag}>{labelTitle.text} </Tag>;
                     })
                 }
             </span>
