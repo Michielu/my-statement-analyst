@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Button } from 'antd';
+import { Button, Checkbox } from 'antd';
 
 import TransRange from './TransRange/index.js';
 import Labels from './Labels';
@@ -18,9 +18,7 @@ export default class Filter extends React.Component {
         selectedLabels: [],
         costMin: MIN,
         costMax: MAX,
-        allLabels: true,
-
-
+        allLabels: false,
     }
 
     updateRange = (startR, endR) => {
@@ -37,23 +35,36 @@ export default class Filter extends React.Component {
         console.log("Start: ", toTimestamp(this.state.rangeStart), " End: ", toTimestamp(this.state.rangeEnd));
     }
 
-    handleChange = (tag, checked) => {
+    handleSelectedLabelChange = (tag, checked) => {
         const { selectedLabels } = this.state;
         const nextSelectedLabels = checked
           ? [...selectedLabels, tag]
           : selectedLabels.filter(t => t !== tag);
-        console.log('You are interested in: ', nextSelectedLabels);
         this.setState({ selectedLabels: nextSelectedLabels });
+      }
+
+      onCheckboxChange= (e)=>{
+        this.setState((prevState)=>{
+            return{
+                allLabels: !prevState.allLabels
+            }
+        })
       }
 
     render() {
         return (
             <div>
                 <h2>Filter Transactions Page: </h2>
-                <TransRange updateRange={this.updateRange} />
-
-                <Labels handleChange={this.handleChange} selectedLabels ={this.state.selectedLabels}/>
-                <Button onClick={this.onFilter}>Filter Transactions</Button>
+                <div>
+                    <TransRange updateRange={this.updateRange} />
+                </div> 
+                <div>
+                    <Labels handleChange={this.handleSelectedLabelChange} selectedLabels ={this.state.selectedLabels}/>
+                    <Checkbox onChange={this.onCheckboxChange}> Match all labels </Checkbox>
+                </div>
+                <div>
+                    <Button onClick={this.onFilter}>Filter Transactions</Button>
+                </div>
             </div>
         )
     }
