@@ -3,11 +3,8 @@ import moment from 'moment';
 import { Button } from 'antd';
 
 import TransRange from './TransRange/index.js';
+import Labels from './Labels';
 
-import {
-    getSessionLabels,
-    getSessionTrans
-} from '../../utils/sessions';
 import { toTimestamp, TableFormat } from '../../utils'
 
 
@@ -45,6 +42,7 @@ export default class Filter extends React.Component {
             <div>
                 <h2>Filter Transactions Page: </h2>
                 <TransRange updateRange={this.updateRange} />
+                <Labels />
                 <Button onClick={this.onFilter}>Filter Transactions</Button>
             </div>
         )
