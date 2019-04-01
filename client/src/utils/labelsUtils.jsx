@@ -4,6 +4,7 @@ import { Tag } from 'antd';
 
 import { getSessionLabels } from '../utils/sessions';
 
+const CheckableTag = Tag.CheckableTag;
 
 const findLabelKey = (key, lab) => {
     for (let i = 0; i < lab.length; i++) {
@@ -39,4 +40,33 @@ export const displayLabels = (keys) => {
         )
     }
 
+}
+
+export const checkableLabels = (keys, handleChange, selectedLabels) => {
+    const labels = getSessionLabels();
+
+    if (keys) {
+        return (
+            <div>
+                {keys.map(tag => {
+                    const labelTitle = findLabelKey(tag, labels);
+                    return (
+                        <CheckableTag
+                            key={tag}
+                            checked={selectedLabels.indexOf(tag) > -1}
+                            onChange={checked => handleChange(tag, checked)}
+                        >
+                            {labelTitle.text}
+                        </CheckableTag>
+                    )
+                })}
+            </div>
+        )
+    } else {
+        return (
+            <span>
+                <p>No Label</p>
+            </span>
+        )
+    }
 }

@@ -7,7 +7,7 @@ import {
     getSessionTrans
 } from '../../utils/sessions';
 
-import { displayLabels } from '../../utils/labelsUtils';
+import { checkableLabels } from '../../utils/labelsUtils';
 import { getLabels } from '../../couriers';
 
 
@@ -50,7 +50,7 @@ export default class Labels extends React.Component {
             <div>
                 <h4>Labels</h4>
                 {console.log("this.state.allLabels: ", this.state.allLabels)}
-                {displayLabels(this.state.allLabels)}
+                {checkableLabels(this.state.allLabels, this.props.handleChange, this.props.selectedLabels)}
             </div>
         )
 
