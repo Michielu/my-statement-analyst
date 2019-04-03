@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Button, Checkbox } from 'antd';
+import { Button, Checkbox, Input } from 'antd';
 
 import TransRange from './TransRange/index.js';
 import Labels from './Labels';
@@ -16,8 +16,8 @@ export default class Filter extends React.Component {
         rangeStart: moment(),
         rangeEnd: moment(),
         selectedLabels: [],
-        costMin: MIN,
-        costMax: MAX,
+        costMin: null,
+        costMax: null,
         allLabels: false,
     }
 
@@ -38,18 +38,34 @@ export default class Filter extends React.Component {
     handleSelectedLabelChange = (tag, checked) => {
         const { selectedLabels } = this.state;
         const nextSelectedLabels = checked
-          ? [...selectedLabels, tag]
-          : selectedLabels.filter(t => t !== tag);
+            ? [...selectedLabels, tag]
+            : selectedLabels.filter(t => t !== tag);
         this.setState({ selectedLabels: nextSelectedLabels });
-      }
+    }
 
-      onCheckboxChange= (e)=>{
-        this.setState((prevState)=>{
-            return{
+    onCheckboxChange = (e) => {
+        this.setState((prevState) => {
+            return {
                 allLabels: !prevState.allLabels
             }
         })
-      }
+    }
+
+    onMinChange = (e) => {
+        const { value } = e.target;
+        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+        if ((!Number.isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+            this.setState({ costMin: value });
+        }
+    }
+
+    onMaxChange = (e) => {
+        const { value } = e.target;
+        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+        if ((!Number.isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+            this.setState({ costMax: value });
+        }
+    }
 
     render() {
         return (
@@ -57,12 +73,17 @@ export default class Filter extends React.Component {
                 <h2>Filter Transactions Page: </h2>
                 <div>
                     <TransRange updateRange={this.updateRange} />
-                </div> 
+                </div>
                 <div>
-                    <Labels handleChange={this.handleSelectedLabelChange} selectedLabels ={this.state.selectedLabels}/>
+                    <Labels handleChange={this.handleSelectedLabelChange} selectedLabels={this.state.selectedLabels} />
                     <Checkbox onChange={this.onCheckboxChange}> Match all labels </Checkbox>
                 </div>
                 <div>
+                    <Input style={{ width: 120 }} placeholder="Min amount" value={this.state.costMin} onChange={this.onMinChange} />
+                    <Input style={{ width: 120 }} placeholder="Max amount" value={this.state.costMax} onChange={this.onMaxChange} />
+                </div>
+                <div>
+
                     <Button onClick={this.onFilter}>Filter Transactions</Button>
                 </div>
             </div>
