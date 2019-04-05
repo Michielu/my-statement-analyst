@@ -9,8 +9,14 @@ import {
 const filterTrans = (trans, req) => {
     console.log('Trans: ', trans, req);
     let filtered = trans.filter(tran => {
-        console.log("tran: ", tran.cost, req.costMin, req.costMax)
-        return (tran.cost > req.costMin && tran.cost <= req.costMax);
+        let withinRange = true;
+        if (req.costMin) {
+            withinRange = parseInt(tran.cost) >= parseInt(req.costMin);
+        }
+        if (req.costMax && withinRange) {
+            withinRange = parseInt(tran.cost) <= parseInt(req.costMax);
+        }
+        return withinRange;
     })
     return filtered;
 }
