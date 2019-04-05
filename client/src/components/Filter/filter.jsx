@@ -4,6 +4,7 @@ import { Button, Checkbox, Input } from 'antd';
 
 import TransRange from './TransRange/index.js';
 import Labels from './Labels';
+import FilteredTrans from './FilteredTrans'
 
 import { toTimestamp, TableFormat } from '../../utils'
 
@@ -19,6 +20,7 @@ export default class Filter extends React.Component {
         costMin: null,
         costMax: null,
         allLabels: false,
+        showTrans: false
     }
 
     updateRange = (startR, endR) => {
@@ -33,6 +35,11 @@ export default class Filter extends React.Component {
     onFilter = () => {
         console.log("State: ", this.state)
         console.log("Start: ", toTimestamp(this.state.rangeStart), " End: ", toTimestamp(this.state.rangeEnd));
+        this.setState((prev) => {
+            return {
+                showTrans: !prev.showTrans
+            }
+        })
     }
 
     handleSelectedLabelChange = (tag, checked) => {
@@ -68,25 +75,32 @@ export default class Filter extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <h2>Filter Transactions Page: </h2>
+        if (this.state.showTrans) {
+            return (
+                <FilteredTrans {...this.state} />
+            )
+        } else {
+            return (
                 <div>
-                    <TransRange updateRange={this.updateRange} />
-                </div>
-                <div>
-                    <Labels handleChange={this.handleSelectedLabelChange} selectedLabels={this.state.selectedLabels} />
-                    <Checkbox onChange={this.onCheckboxChange}> Match all labels </Checkbox>
-                </div>
-                <div>
-                    <Input style={{ width: 120 }} placeholder="Min amount" value={this.state.costMin} onChange={this.onMinChange} />
-                    <Input style={{ width: 120 }} placeholder="Max amount" value={this.state.costMax} onChange={this.onMaxChange} />
-                </div>
-                <div>
+                    <h2>Filter Transactions Page: </h2>
+                    <div>
+                        <TransRange updateRange={this.updateRange} />
+                    </div>
+                    <div>
+                        <Labels handleChange={this.handleSelectedLabelChange} selectedLabels={this.state.selectedLabels} />
+                        <Checkbox onChange={this.onCheckboxChange}> Match all labels </Checkbox>
+                    </div>
+                    <div>
+                        <Input style={{ width: 120 }} placeholder="Min amount" value={this.state.costMin} onChange={this.onMinChange} />
+                        <Input style={{ width: 120 }} placeholder="Max amount" value={this.state.costMax} onChange={this.onMaxChange} />
+                    </div>
+                    <div>
 
-                    <Button onClick={this.onFilter}>Filter Transactions</Button>
+                        <Button onClick={this.onFilter}>Filter Transactions</Button>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+
     }
 }
