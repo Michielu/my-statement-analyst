@@ -9,14 +9,36 @@ import {
 const filterTrans = (trans, req) => {
     console.log('Trans: ', trans, req);
     let filtered = trans.filter(tran => {
-        let withinRange = true;
+        let withinCostRange = true;
+        let containsLabels = true;
+        let withinDateRange = true;
         if (req.costMin) {
-            withinRange = parseInt(tran.cost) >= parseInt(req.costMin);
+            withinCostRange = parseInt(tran.cost) >= parseInt(req.costMin);
         }
-        if (req.costMax && withinRange) {
-            withinRange = parseInt(tran.cost) <= parseInt(req.costMax);
+        if (req.costMax && withinCostRange) {
+            withinCostRange = parseInt(tran.cost) <= parseInt(req.costMax);
         }
-        return withinRange;
+        if (req.selectedLabels.length > 0) {
+            if (req.allLabels) {
+                containsLabels = true;
+                req.selectedLabels.forEach((label) => {
+                    if (tran.labels.indexOf(label) == -1) {
+
+                        containsLabels = false;
+                    }
+                })
+            } else {
+                containsLabels = false;
+                tran.labels.forEach((label) => {
+                    if (req.selectedLabels.indexOf(label) > -1) {
+                        containsLabels = true;
+                    }
+                })
+            }
+        }
+        //Check labels and date range from here too
+        console.log("add tran:", (withinCostRange && containsLabels && withinDateRange))
+        return withinCostRange && containsLabels && withinDateRange;
     })
     return filtered;
 }
