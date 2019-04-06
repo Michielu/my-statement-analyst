@@ -14,8 +14,8 @@ const MAX = 120000000;
 
 export default class Filter extends React.Component {
     state = {
-        rangeStart: moment(),
-        rangeEnd: moment(),
+        rangeStart: null,
+        rangeEnd: null,
         selectedLabels: [],
         costMin: null,
         costMax: null,

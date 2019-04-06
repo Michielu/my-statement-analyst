@@ -2,12 +2,11 @@ import React from 'react';
 
 import { getSessionTrans, getSessionLabels } from '../../../utils/sessions';
 import {
-    TableFormat
+    TableFormat, toTimestamp
 } from '../../../utils'
 
 
 const filterTrans = (trans, req) => {
-    console.log('Trans: ', trans, req);
     let filtered = trans.filter(tran => {
         let withinCostRange = true;
         let containsLabels = true;
@@ -20,10 +19,8 @@ const filterTrans = (trans, req) => {
         }
         if (req.selectedLabels.length > 0) {
             if (req.allLabels) {
-                containsLabels = true;
                 req.selectedLabels.forEach((label) => {
                     if (tran.labels.indexOf(label) == -1) {
-
                         containsLabels = false;
                     }
                 })
@@ -36,8 +33,15 @@ const filterTrans = (trans, req) => {
                 })
             }
         }
-        //Check labels and date range from here too
-        console.log("add tran:", (withinCostRange && containsLabels && withinDateRange))
+        if (req.rangeEnd && req.rangeStart) {
+            const tsStart = toTimestamp(req.rangeStart);
+            const tsEnd = toTimestamp(req.rangeEnd);
+            const tsDOP = toTimestamp(tran.dateOfPurchase.substring(0, 10));
+
+            if (tsDOP > tsEnd || tsDOP < tsStart) {
+                withinDateRange = false;
+            }
+        }
         return withinCostRange && containsLabels && withinDateRange;
     })
     return filtered;
